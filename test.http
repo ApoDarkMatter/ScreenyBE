@@ -1,0 +1,8 @@
+POST http://localhost:5050/users
+Content-Type: application/json 
+
+{
+    "shopName": "MyShop",
+    "email": "myshop@myshop.com",
+    "password": "CiaoCiao"
+}
