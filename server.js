@@ -5,6 +5,7 @@ require("dotenv").config()
 const UserRoute = require('./routes/users')
 const LoginRoute = require('./routes/login')
 const ScreenRoute = require('./routes/screens')
+const CategoryRoute = require('./routes/categories')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/', LoginRoute)
 app.use('/', UserRoute)
 app.use('/', ScreenRoute)
+app.use('/', CategoryRoute)
 
 mongoose.connect(process.env.MONGODB_SERVER_URL, {
     useNewUrlParser: true,

@@ -13,17 +13,7 @@ const ScreenSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    timeScreen: {
-        type: Boolean,
-        default: false,
-    },
-    startTime: {
-        type: Date
-    },
-    endTime: {
-        type: Date
-    },
-    shopName: {
+    shopId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserModel'
     }

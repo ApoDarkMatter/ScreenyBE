@@ -39,10 +39,7 @@ screen.post('/screen', async (req, res) => {
         screenName: req.body.screenName,
         imgUrl: req.body.imgUrl,
         category: req.body.category,
-        timeScreen: req.body.timeScreen,
-        startTime: req.body.startTime,
-        endTime: req.body.endTime,
-        shopName: req.body.shopName
+        shopId: req.body.shopId
     })
 
     try {
