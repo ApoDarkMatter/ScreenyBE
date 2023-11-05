@@ -9,7 +9,7 @@ const ScreenSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    category: {
+    container: {
         type: String,
         required: true,
     },

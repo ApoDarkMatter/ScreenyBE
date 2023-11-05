@@ -1,14 +1,14 @@
 const express = require('express')
-const CategoryModel = require('../models/category')
-const category = express.Router()
+const ContainerModel = require('../models/screen_container')
+const container = express.Router()
 
-category.get('/categories', async (req, res) => {
+container.get('/containers', async (req, res) => {
     try {
-        const categories = await CategoryModel.find()
+        const container = await ContainerModel.find()
 
         res.status(200).send({
             statusCode: 200,
-            categories
+            container
         })
     } catch(e) {
         res.status(500).send({
@@ -18,12 +18,12 @@ category.get('/categories', async (req, res) => {
     }
 })
 
-category.get('/categories/:categoryId', async (req, res) => {
+container.get('/containers/:containersId', async (req, res) => {
     const {userId} = req.params
     try {
-        const categories = await CategoryModel.findById(categoryId)
+        const containers = await ContainerModel.findById(containersId)
 
-        if(!categories) {
+        if(!containers) {
             return res.status(404).send({
                 statusCode: 404,
                 message: 'Categeory Not Found'
@@ -31,7 +31,7 @@ category.get('/categories/:categoryId', async (req, res) => {
         }
         res.status(200).send({
             statusCode: 200,
-            categories
+            containers
         })
     } catch(e) {
         res.status(500).send({
@@ -41,23 +41,20 @@ category.get('/categories/:categoryId', async (req, res) => {
     }
 })
 
-category.post('/categories', async (req, res) => {
+container.post('/containers', async (req, res) => {
 
-    const newCategory = new CategoryModel({
-        categoryName: req.body.categoryName,
-        timeScreen: req.body.timeScreen,
-        startTime: req.body.startTime,
-        endTime: req.body.endTime,
+    const newContainer = new ContainerModel({
+        containerName: req.body.categoryName,
         shopId: req.body.shopId
     })
 
     try {
-        const categoy = await newCategory.save()
+        const containers = await newContainer.save()
 
         res.status(201).send({
             statusCode: 201,
-            message: 'Category Saved Correctly',
-            categoy
+            message: 'Container Saved Correctly',
+            containers
         })
     } catch(e) {
         res.status(500).send({
@@ -67,11 +64,11 @@ category.post('/categories', async (req, res) => {
     }
 })
 
-category.patch('/categories/:categoryId', async (req, res) => {
-    const {categoryId} = req.params
-    const categoryExist = await CategoryModel.findById(categoryId)
+container.patch('/containers/:containerId', async (req, res) => {
+    const {containerId} = req.params
+    const containerExist = await ContainerModel.findById(containerId)
 
-    if(!categoryExist) {
+    if(!containerExist) {
         return res.status(404).send({
             statusCode: 404,
             message: 'Category Not Found'
@@ -81,11 +78,11 @@ category.patch('/categories/:categoryId', async (req, res) => {
     try {
         const dataToUpdate = req.body
         const options = {new: true}
-        const result = await CategoryModel.findByIdAndUpdate(categoryId, dataToUpdate, options)
+        const result = await ContainerModel.findByIdAndUpdate(containerId, dataToUpdate, options)
 
         res.status(200).send({
             statusCode: 200,
-            message: 'Category Updated Correctly',
+            message: 'Container Updated Correctly',
             result
         })
     } catch(e) {
@@ -96,20 +93,20 @@ category.patch('/categories/:categoryId', async (req, res) => {
     }
 })
 
-category.delete('/categories/:categoryId', async (req, res) => {
-    const {categoryId} = req.params
+container.delete('/containers/:containerId', async (req, res) => {
+    const {containerId} = req.params
     try {
-        const category = await CategoryModel.findByIdAndDelete(categoryId)
-        if(!category) {
+        const container = await ContainerModel.findByIdAndDelete(containerId)
+        if(!container) {
             return res.statusCode(404).send({
                 statusCode: 404,
-                message: 'Category Not Found or Already Deleted'
+                message: 'Container Not Found or Already Deleted'
             })
         }
 
         res.status(200).send({
             statusCode: 200,
-            message: 'Category Deleted Successfully'
+            message: 'Container Deleted Successfully'
         })
     } catch(e) {    
         res.status(500).send({
@@ -119,4 +116,4 @@ category.delete('/categories/:categoryId', async (req, res) => {
     }   
 })
 
-module.exports = category
+module.exports = container
