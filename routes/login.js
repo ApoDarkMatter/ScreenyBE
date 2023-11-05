@@ -29,7 +29,7 @@ login.post('/login', async (req,res) => {
         shopName: user.shopName,
         email: user.email
     }, process.env.JWT_SECRET, {
-        expiresIn: '72h'
+        expiresIn: '1h'
     })
 
     res.header('Authorization', token).status(200).send({
