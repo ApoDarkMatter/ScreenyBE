@@ -9,6 +9,9 @@ const ScreenSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    text: {
+        type: String
+    },
     container: {
         type: String,
         required: true,
