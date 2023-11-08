@@ -8,6 +8,10 @@ const ContainerSchema = new mongoose.Schema({
     shopId: {
         type: String,
         required: true
+    },
+    viewCode: {
+        type: String,
+        required: true
     }
 },{ timestamps: true, strict: true })
 

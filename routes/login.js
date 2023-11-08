@@ -25,7 +25,7 @@ login.post('/login', async (req,res) => {
     }
 
     const token = jwt.sign({
-        is: user._id,
+        id: user._id,
         shopName: user.shopName,
         email: user.email
     }, process.env.JWT_SECRET, {
