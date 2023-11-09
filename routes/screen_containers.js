@@ -2,9 +2,10 @@ const express = require('express')
 const ContainerModel = require('../models/screen_container')
 const container = express.Router()
 
-container.get('/containers', async (req, res) => {
+container.get('/containers/:shopId', async (req, res) => {
+    const {shopId} = req.params
     try {
-        const container = await ContainerModel.find()
+        const container = await ContainerModel.find(shopId)
 
         res.status(200).send({
             statusCode: 200,
@@ -19,7 +20,7 @@ container.get('/containers', async (req, res) => {
 })
 
 container.get('/containers/:containersId', async (req, res) => {
-    const {userId} = req.params
+    const {containersId} = req.params
     try {
         const containers = await ContainerModel.findById(containersId)
 
@@ -41,11 +42,38 @@ container.get('/containers/:containersId', async (req, res) => {
     }
 })
 
+container.get('/containers/viewCode/:code', async (req, res) => {
+    const {code} = req.params
+    console.log(code);
+    try {
+        const codes = await ContainerModel.find({
+            viewCode: { $regex: code, $options: "i"},})
+
+        if(!codes) {
+            return res.status(404).send({
+                statusCode: 404,
+                message: 'Code Not Found'
+            })
+        }
+
+        res.status(200).send({
+            statusCode: 200,
+            viewCodes
+        })
+    } catch(e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
+
 container.post('/containers', async (req, res) => {
 
     const newContainer = new ContainerModel({
         containerName: req.body.categoryName,
-        shopId: req.body.shopId
+        shopId: req.body.shopId,
+        viewCode: req.body.viewCode,
     })
 
     try {
