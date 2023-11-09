@@ -58,7 +58,7 @@ container.get('/containers/viewCode/:code', async (req, res) => {
 
         res.status(200).send({
             statusCode: 200,
-            viewCodes
+            codes
         })
     } catch(e) {
         res.status(500).send({
