@@ -44,17 +44,9 @@ container.get('/containers/:containersId', async (req, res) => {
 
 container.get('/containers/viewCode/:code', async (req, res) => {
     const {code} = req.params
-    console.log(code);
+    console.log(`Code is: ${code}`);
     try {
-        const codes = await ContainerModel.find({
-            viewCode: { $regex: code, $options: "i"},})
-
-        if(!codes) {
-            return res.status(404).send({
-                statusCode: 404,
-                message: 'Code Not Found'
-            })
-        }
+        const codes = await ContainerModel.findOne({viewCode: code})
 
         res.status(200).send({
             statusCode: 200,
@@ -71,7 +63,7 @@ container.get('/containers/viewCode/:code', async (req, res) => {
 container.post('/containers', async (req, res) => {
 
     const newContainer = new ContainerModel({
-        containerName: req.body.categoryName,
+        containerName: req.body.containerName,
         shopId: req.body.shopId,
         viewCode: req.body.viewCode,
     })
