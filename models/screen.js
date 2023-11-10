@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const ScreenSchema = new mongoose.Schema({
-    screenName: {
-        type: String,
-        required: true,
-    },
     imgUrl: {
         type: String,
         required: true,
