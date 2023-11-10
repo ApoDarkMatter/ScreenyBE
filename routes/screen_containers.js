@@ -2,37 +2,14 @@ const express = require('express')
 const ContainerModel = require('../models/screen_container')
 const container = express.Router()
 
-container.get('/containers/:shopId', async (req, res) => {
-    const {shopId} = req.params
+container.get('/containers/:Id', async (req, res) => {
+    const {Id} = req.params
     try {
-        const container = await ContainerModel.find(shopId)
+        const container = await ContainerModel.find({shopId: Id})
 
         res.status(200).send({
             statusCode: 200,
             container
-        })
-    } catch(e) {
-        res.status(500).send({
-            statusCode: 500,
-            message: 'Internal Server Error'
-        })
-    }
-})
-
-container.get('/containers/:containersId', async (req, res) => {
-    const {containersId} = req.params
-    try {
-        const containers = await ContainerModel.findById(containersId)
-
-        if(!containers) {
-            return res.status(404).send({
-                statusCode: 404,
-                message: 'Categeory Not Found'
-            })
-        }
-        res.status(200).send({
-            statusCode: 200,
-            containers
         })
     } catch(e) {
         res.status(500).send({
