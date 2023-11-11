@@ -21,7 +21,7 @@ container.get('/containers/:Id', async (req, res) => {
 
 container.get('/containers/viewCode/:code', async (req, res) => {
     const {code} = req.params
-    console.log(`Code is: ${code}`);
+
     try {
         const codes = await ContainerModel.findOne({viewCode: code})
 
