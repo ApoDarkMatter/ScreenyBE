@@ -43,12 +43,29 @@ screen.post('/screen', async (req, res) => {
     })
 
     try {
-        const screen = await new screenModel.save()
+        const screen = await newScreen.save()
 
         res.status(201).send({
             statusCode: 201,
             message: 'Screen Saved Correctly',
             screen
+        })
+    } catch(e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
+
+screen.get('/screen/:Id', async (req, res) => {
+    const {Id} = req.params
+    try {
+        const screens = await screenModel.find({containerId: Id})
+
+        res.status(200).send({
+            statusCode: 200,
+            screens
         })
     } catch(e) {
         res.status(500).send({
