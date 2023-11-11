@@ -25,7 +25,7 @@ const cloudUpload = multer({storage: cloudStorage})
 
 screen.post('/screen/cloudUpload', cloudUpload.single('screen'), async (req, res) => {
     try {
-        res.status(200).json({cover: req.file.path})
+        res.status(200).json({screen: req.file.path})
     } catch(e) {
         res.status(500).send({
             statusCode: 500,
@@ -36,9 +36,9 @@ screen.post('/screen/cloudUpload', cloudUpload.single('screen'), async (req, res
 
 screen.post('/screen', async (req, res) => {
     const newScreen = new screenModel({
-        screenName: req.body.screenName,
         imgUrl: req.body.imgUrl,
-        category: req.body.category,
+        text: req.body.text,
+        containerId: req.body.containerId,
         shopId: req.body.shopId
     })
 

@@ -6,15 +6,16 @@ const ScreenSchema = new mongoose.Schema({
         required: true,
     },
     text: {
-        type: String
+        type: String,
+        required: true,
     },
-    container: {
+    containerId: {
         type: String,
         required: true,
     },
     shopId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserModel'
+        type: String,
+        required: true,
     }
 },{ timestamps: true, strict: true })
 
