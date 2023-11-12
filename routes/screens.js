@@ -101,4 +101,30 @@ screen.delete('/screen/:screenId', async (req, res) => {
     }
 })
 
+screen.delete('/screen/images/:containerId', async (req, res) => {
+    const {containerId} = req.params
+
+    try {
+        const screen = await screenModel.deleteMany({containerId: containerId})
+
+        if(!screen) {
+            return res.status(404).send({
+                statausCode: 404,
+                message: 'Screen Not Found'
+            })
+        }
+
+        res.status(200).send({
+            statusCode: 200,
+            message: 'Screens Deleted Succesfully'
+        })
+
+    } catch(e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
+
 module.exports = screen
