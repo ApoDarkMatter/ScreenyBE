@@ -101,6 +101,35 @@ screen.delete('/screen/:screenId', async (req, res) => {
     }
 })
 
+screen.patch('/screen/:screenyId', async (req, res) => {
+    const {screenyId} = req.params
+    const screenyExist = await screenModel.findById(screenyId)
+
+    if(!screenyExist) {
+        return res.status(404).send({
+            statusCode: 404,
+            message: 'Screeny Not Found'
+        })
+    }
+
+    try {
+        const dataToUpdate = req.body
+        const options = {new: true}
+        const result = await screenModel.findByIdAndUpdate(screenyId, dataToUpdate, options)
+
+        res.status(200).send({
+            statusCode: 200,
+            message: 'Screeny Updated Correctly',
+            result
+        })
+    } catch(e) {
+        res.status(500).send({
+            statusCode: 500,
+            message: 'Internal Server Error'
+        })
+    }
+})
+
 screen.delete('/screen/images/:containerId', async (req, res) => {
     const {containerId} = req.params
 
